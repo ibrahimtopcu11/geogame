@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "generatedAt": "2024-11-26T20:00:00Z",
+    "city": "New York City",
+    "version": "2.0.0"
+  },
+  "passengers": [
+    {
+      "id": "p001",
+      "name": "Business Executive",
+      "type": "premium",
+      "pickup": { "x": 100, "z": 50, "lat": 40.758, "lon": -73.985 },
+      "dropoff": { "x": 450, "z": 200, "lat": 40.761, "lon": -73.977 },
+      "baseTip": 15.50,
+      "urgency": "high",
+      "timeMultiplier": 1.5,
+      "description": "Going to Wall Street meeting"
+    },
+    {
+      "id": "p002",
+      "name": "Tourist",
+      "type": "standard",
+      "pickup": { "x": 200, "z": 100, "lat": 40.748, "lon": -73.968 },
+      "dropoff": { "x": 300, "z": 300, "lat": 40.752, "lon": -73.977 },
+      "baseTip": 8.00,
+      "urgency": "medium",
+      "timeMultiplier": 1.0,
+      "description": "Sightseeing trip to Times Square"
+    },
+    {
+      "id": "p003",
+      "name": "Late Worker",
+      "type": "night",
+      "pickup": { "x": 350, "z": 150, "lat": 40.750, "lon": -73.993 },
+      "dropoff": { "x": 500, "z": 400, "lat": 40.762, "lon": -73.971 },
+      "baseTip": 12.00,
+      "urgency": "high",
+      "timeMultiplier": 2.0,
+      "description": "Going home after late shift"
+    },
+    {
+      "id": "p004",
+      "name": "Student",
+      "type": "economy",
+      "pickup": { "x": 150, "z": 250, "lat": 40.745, "lon": -73.975 },
+      "dropoff": { "x": 250, "z": 100, "lat": 40.756, "lon": -73.979 },
+      "baseTip": 5.50,
+      "urgency": "low",
+      "timeMultiplier": 0.8,
+      "description": "Going to university"
+    },
+    {
+      "id": "p005",
+      "name": "Airport Traveler",
+      "type": "premium",
+      "pickup": { "x": 400, "z": 350, "lat": 40.754, "lon": -73.984 },
+      "dropoff": { "x": 600, "z": 500, "lat": 40.765, "lon": -73.960 },
+      "baseTip": 20.00,
+      "urgency": "critical",
+      "timeMultiplier": 2.5,
+      "description": "Rushing to catch flight"
+    },
+    {
+      "id": "p006",
+      "name": "Doctor",
+      "type": "premium",
+      "pickup": { "x": 120, "z": 180, "lat": 40.742, "lon": -73.988 },
+      "dropoff": { "x": 380, "z": 280, "lat": 40.759, "lon": -73.972 },
+      "baseTip": 18.00,
+      "urgency": "high",
+      "timeMultiplier": 1.8,
+      "description": "Emergency call to hospital"
+    },
+    {
+      "id": "p007",
+      "name": "Shopper",
+      "type": "standard",
+      "pickup": { "x": 280, "z": 220, "lat": 40.749, "lon": -73.981 },
+      "dropoff": { "x": 420, "z": 150, "lat": 40.757, "lon": -73.974 },
+      "baseTip": 9.50,
+      "urgency": "medium",
+      "timeMultiplier": 1.1,
+      "description": "Shopping at 5th Avenue"
+    },
+    {
+      "id": "p008",
+      "name": "Party Goer",
+      "type": "night",
+      "pickup": { "x": 180, "z": 320, "lat": 40.744, "lon": -73.990 },
+      "dropoff": { "x": 330, "z": 420, "lat": 40.753, "lon": -73.978 },
+      "baseTip": 14.00,
+      "urgency": "medium",
+      "timeMultiplier": 1.6,
+      "description": "Going to nightclub"
+    },
+    {
+      "id": "p009",
+      "name": "Elderly Person",
+      "type": "standard",
+      "pickup": { "x": 240, "z": 280, "lat": 40.747, "lon": -73.983 },
+      "dropoff": { "x": 290, "z": 190, "lat": 40.751, "lon": -73.980 },
+      "baseTip": 10.00,
+      "urgency": "low",
+      "timeMultiplier": 0.9,
+      "description": "Doctor appointment"
+    },
+    {
+      "id": "p010",
+      "name": "Businessman",
+      "type": "premium",
+      "pickup": { "x": 380, "z": 120, "lat": 40.755, "lon": -73.976 },
+      "dropoff": { "x": 520, "z": 280, "lat": 40.763, "lon": -73.968 },
+      "baseTip": 16.50,
+      "urgency": "high",
+      "timeMultiplier": 1.7,
+      "description": "Corporate meeting"
+    }
+  ],
+  "roads": [
+    {
+      "id": "r001",
+      "start": { "x": 0, "z": 0 },
+      "end": { "x": 600, "z": 0 },
+      "lanes": 4,
+      "speedLimit": 50
+    },
+    {
+      "id": "r002",
+      "start": { "x": 0, "z": 200 },
+      "end": { "x": 600, "z": 200 },
+      "lanes": 4,
+      "speedLimit": 50
+    },
+    {
+      "id": "r003",
+      "start": { "x": 0, "z": 400 },
+      "end": { "x": 600, "z": 400 },
+      "lanes": 4,
+      "speedLimit": 50
+    },
+    {
+      "id": "r004",
+      "start": { "x": 200, "z": 0 },
+      "end": { "x": 200, "z": 500 },
+      "lanes": 3,
+      "speedLimit": 40
+    },
+    {
+      "id": "r005",
+      "start": { "x": 400, "z": 0 },
+      "end": { "x": 400, "z": 500 },
+      "lanes": 3,
+      "speedLimit": 40
+    }
+  ],
+  "trafficLights": [
+    {
+      "id": "tl001",
+      "position": { "x": 200, "z": 0 },
+      "cycleTime": 30,
+      "greenDuration": 15,
+      "yellowDuration": 3,
+      "redDuration": 12
+    },
+    {
+      "id": "tl002",
+      "position": { "x": 200, "z": 200 },
+      "cycleTime": 30,
+      "greenDuration": 15,
+      "yellowDuration": 3,
+      "redDuration": 12
+    },
+    {
+      "id": "tl003",
+      "position": { "x": 200, "z": 400 },
+      "cycleTime": 30,
+      "greenDuration": 15,
+      "yellowDuration": 3,
+      "redDuration": 12
+    },
+    {
+      "id": "tl004",
+      "position": { "x": 400, "z": 0 },
+      "cycleTime": 30,
+      "greenDuration": 15,
+      "yellowDuration": 3,
+      "redDuration": 12
+    },
+    {
+      "id": "tl005",
+      "position": { "x": 400, "z": 200 },
+      "cycleTime": 30,
+      "greenDuration": 15,
+      "yellowDuration": 3,
+      "redDuration": 12
+    },
+    {
+      "id": "tl006",
+      "position": { "x": 400, "z": 400 },
+      "cycleTime": 30,
+      "greenDuration": 15,
+      "yellowDuration": 3,
+      "redDuration": 12
+    }
+  ],
+  "buildings": [
+    { "position": { "x": 50, "z": 50 }, "width": 80, "height": 120, "depth": 80 },
+    { "position": { "x": 50, "z": 250 }, "width": 80, "height": 150, "depth": 80 },
+    { "position": { "x": 300, "z": 50 }, "width": 80, "height": 100, "depth": 80 },
+    { "position": { "x": 300, "z": 250 }, "width": 80, "height": 180, "depth": 80 },
+    { "position": { "x": 500, "z": 50 }, "width": 80, "height": 140, "depth": 80 },
+    { "position": { "x": 500, "z": 250 }, "width": 80, "height": 110, "depth": 80 },
+    { "position": { "x": 50, "z": 450 }, "width": 80, "height": 160, "depth": 80 },
+    { "position": { "x": 300, "z": 450 }, "width": 80, "height": 130, "depth": 80 },
+    { "position": { "x": 500, "z": 450 }, "width": 80, "height": 170, "depth": 80 }
+  ],
+  "timeSystem": {
+    "startTime": 6,
+    "timeScale": 60,
+    "dayNightCycle": true,
+    "weatherEffects": true
+  },
+  "tipCalculation": {
+    "baseRate": 1.0,
+    "distanceBonus": 0.5,
+    "timeBonus": {
+      "morning": 1.0,
+      "afternoon": 0.9,
+      "evening": 1.2,
+      "night": 1.5
+    },
+    "speedPenalty": 0.1,
+    "trafficViolationPenalty": 5.0,
+    "perfectDeliveryBonus": 2.0
+  }
+}

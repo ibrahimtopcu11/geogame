@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Taxi Driver Master</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="hud">
+            <div class="hud-top-left">
+                <canvas id="minimap"></canvas>
+                <div class="time-display">
+                    <span id="game-time">06:00</span>
+                    <span id="day-night">Morning</span>
+                </div>
+            </div>
+            
+            <div class="hud-top-right">
+                <div class="money-display">
+                    <span class="coin-icon">💰</span>
+                    <span id="money">250</span>
+                </div>
+                <div class="stats">
+                    <div>Trips: <span id="trip-count">0</span></div>
+                    <div>Rating: <span id="rating">5.0</span>⭐</div>
+                </div>
+            </div>
+            
+            <div class="hud-center">
+                <div id="mission-info" class="hidden">
+                    <div class="passenger-info">
+                        <h3 id="passenger-name"></h3>
+                        <p id="passenger-desc"></p>
+                        <div class="distance-info">
+                            Distance: <span id="distance">0.0</span> miles
+                        </div>
+                        <div class="estimated-tip">
+                            Est. Tip: $<span id="estimated-tip">0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hud-bottom">
+                <div class="speedometer">
+                    <canvas id="speedometer-canvas"></canvas>
+                    <div class="speed-text">
+                        <span id="speed">0</span>
+                        <span class="unit">MPH</span>
+                    </div>
+                </div>
+                
+                <div class="controls-info">
+                    <div class="control-item">
+                        <kbd>W</kbd> <span>Accelerate</span>
+                    </div>
+                    <div class="control-item">
+                        <kbd>S</kbd> <span>Brake</span>
+                    </div>
+                    <div class="control-item">
+                        <kbd>A/D</kbd> <span>Steer</span>
+                    </div>
+                    <div class="control-item">
+                        <kbd>Space</kbd> <span>Handbrake</span>
+                    </div>
+                    <div class="control-item">
+                        <kbd>H</kbd> <span>Horn</span>
+                    </div>
+                </div>
+                
+                <div class="mission-controls">
+                    <button id="search-passenger-btn" class="game-btn">
+                        🔍 Search Passenger (R)
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="passenger-list" class="hidden">
+            <h2>Available Passengers</h2>
+            <div id="passenger-grid"></div>
+            <button id="close-passenger-list" class="close-btn">×</button>
+        </div>
+        
+        <div id="notification" class="notification hidden"></div>
+    </div>
+    
+    <canvas id="game-canvas"></canvas>
+    
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
