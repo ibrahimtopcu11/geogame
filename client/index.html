@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <canvas id="game-canvas"></canvas>
+    
     <div id="game-container">
         <div id="hud">
             <div class="hud-top-left">
@@ -28,24 +30,9 @@
                 </div>
             </div>
             
-            <div class="hud-center">
-                <div id="mission-info" class="hidden">
-                    <div class="passenger-info">
-                        <h3 id="passenger-name"></h3>
-                        <p id="passenger-desc"></p>
-                        <div class="distance-info">
-                            Distance: <span id="distance">0.0</span> miles
-                        </div>
-                        <div class="estimated-tip">
-                            Est. Tip: $<span id="estimated-tip">0.00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
             <div class="hud-bottom">
                 <div class="speedometer">
-                    <canvas id="speedometer-canvas"></canvas>
+                    <canvas id="speedometer-canvas" width="200" height="200"></canvas>
                     <div class="speed-text">
                         <span id="speed">0</span>
                         <span class="unit">MPH</span>
@@ -53,28 +40,14 @@
                 </div>
                 
                 <div class="controls-info">
-                    <div class="control-item">
-                        <kbd>W</kbd> <span>Accelerate</span>
-                    </div>
-                    <div class="control-item">
-                        <kbd>S</kbd> <span>Brake</span>
-                    </div>
-                    <div class="control-item">
-                        <kbd>A/D</kbd> <span>Steer</span>
-                    </div>
-                    <div class="control-item">
-                        <kbd>Space</kbd> <span>Handbrake</span>
-                    </div>
-                    <div class="control-item">
-                        <kbd>H</kbd> <span>Horn</span>
-                    </div>
+                    <div class="control-item"><kbd>W</kbd><span>Accelerate</span></div>
+                    <div class="control-item"><kbd>S</kbd><span>Brake</span></div>
+                    <div class="control-item"><kbd>A/D</kbd><span>Steer</span></div>
+                    <div class="control-item"><kbd>Space</kbd><span>Handbrake</span></div>
+                    <div class="control-item"><kbd>H</kbd><span>Horn</span></div>
                 </div>
                 
-                <div class="mission-controls">
-                    <button id="search-passenger-btn" class="game-btn">
-                        🔍 Search Passenger (R)
-                    </button>
-                </div>
+                <button id="search-passenger-btn" class="game-btn">🔍 Search Passenger (R)</button>
             </div>
         </div>
         
@@ -84,17 +57,20 @@
             <button id="close-passenger-list" class="close-btn">×</button>
         </div>
         
+        <div id="mission-info" class="hidden">
+            <h3 id="passenger-name"></h3>
+            <p id="passenger-desc"></p>
+            <div>Distance: <span id="distance">0</span> miles</div>
+            <div>Tip: $<span id="estimated-tip">0</span></div>
+        </div>
+        
         <div id="notification" class="notification hidden"></div>
     </div>
     
-    <canvas id="game-canvas"></canvas>
-    
-    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
     <script type="importmap">
     {
         "imports": {
-            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
         }
     }
     </script>
