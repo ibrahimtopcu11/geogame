@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Taxi Driver Master</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { overflow: hidden; font-family: 'Segoe UI', Arial, sans-serif; background: #000; }
+        
+        #game-canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        .hud {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .top-left {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.85);
+            padding: 15px;
+            border-radius: 15px;
+            border: 3px solid #FFD700;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+            pointer-events: auto;
+        }
+        
+        #minimap {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #FFD700;
+            background: #0a0a0a;
+            border-radius: 8px;
+            display: block;
+        }
+        
+        .time-display {
+            margin-top: 12px;
+            text-align: center;
+            padding: 8px;
+            background: rgba(255,215,0,0.2);
+            border-radius: 8px;
+        }
+        
+        #game-time {
+            display: block;
+            font-size: 20px;
+            color: #FFD700;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255,215,0,0.8);
+        }
+        
+        #day-period {
+            display: block;
+            font-size: 14px;
+            color: #FFF;
+            margin-top: 4px;
+        }
+        
+        .top-right {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            padding: 18px 35px;
+            border-radius: 20px;
+            font-size: 36px;
+            font-weight: bold;
+            color: #000;
+            box-shadow: 0 8px 32px rgba(255,215,0,0.6);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .bottom-center {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 25px;
+            align-items: flex-end;
+            pointer-events: auto;
+        }
+        
+        .speedometer {
+            background: radial-gradient(circle, rgba(0,0,0,0.95), rgba(0,0,0,0.8));
+            padding: 25px;
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 6px solid #FFD700;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,215,0,0.3);
+        }
+        
+        #speed {
+            font-size: 56px;
+            color: #FFD700;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255,215,0,0.8);
+            line-height: 1;
+        }
+        
+        .unit {
+            color: white;
+            font-size: 18px;
+            margin-top: 8px;
+            letter-spacing: 2px;
+        }
+        
+        .controls {
+            background: rgba(0,0,0,0.9);
+            padding: 20px 25px;
+            border-radius: 15px;
+            color: white;
+            border: 3px solid #FFD700;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+        }
+        
+        .controls div {
+            margin: 8px 0;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-size: 15px;
+        }
+        
+        kbd {
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: 2px solid #FFD700;
+            color: #FFD700;
+            font-weight: bold;
+            min-width: 50px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+            font-size: 14px;
+        }
+        
+        .search-btn {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 24px rgba(255,107,53,0.6);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .search-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(255,107,53,0.8);
+        }
+        
+        #passenger-list {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.96);
+            padding: 35px;
+            border-radius: 25px;
+            border: 4px solid #FFD700;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            display: none;
+            z-index: 100;
+            pointer-events: auto;
+            box-shadow: 0 16px 64px rgba(0,0,0,0.9);
+        }
+        
+        #passenger-list.active {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translate(-50%, -40%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+        
+        #passenger-list h2 {
+            color: #FFD700;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 32px;
+            text-shadow: 0 0 20px rgba(255,215,0,0.6);
+        }
+        
+        .passenger-card {
+            background: rgba(255,215,0,0.08);
+            border: 3px solid #FFD700;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+        }
+        
+        .passenger-card:hover {
+            background: rgba(255,215,0,0.2);
+            transform: scale(1.03);
+            box-shadow: 0 8px 32px rgba(255,215,0,0.4);
+        }
+        
+        .passenger-info {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.95);
+            padding: 25px 35px;
+            border-radius: 20px;
+            border: 4px solid #FFD700;
+            color: white;
+            text-align: center;
+            display: none;
+            z-index: 50;
+            box-shadow: 0 16px 64px rgba(0,0,0,0.9);
+        }
+        
+        .passenger-info.active {
+            display: block;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #FF4444;
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 28px;
+            cursor: pointer;
+            pointer-events: auto;
+            transition: all 0.3s;
+            box-shadow: 0 4px 16px rgba(255,68,68,0.6);
+        }
+        
+        .close-btn:hover {
+            background: #FF0000;
+            transform: scale(1.1);
+        }
+        
+        .notification {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.95);
+            color: white;
+            padding: 25px 50px;
+            border-radius: 20px;
+            border: 4px solid #FFD700;
+            font-size: 28px;
+            font-weight: bold;
+            display: none;
+            z-index: 200;
+            box-shadow: 0 16px 64px rgba(0,0,0,0.9);
+            text-shadow: 0 0 20px rgba(255,215,0,0.8);
+        }
+        
+        .notification.active {
+            display: block;
+            animation: fadeInOut 3s;
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            15%, 85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.5);
+            border-radius: 6px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #FFD700;
+            border-radius: 6px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFA500;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="game-canvas"></canvas>
+    
+    <div class="hud">
+        <div class="top-left">
+            <canvas id="minimap"></canvas>
+            <div class="time-display">
+                <span id="game-time">06:00 AM</span>
+                <span id="day-period">Morning</span>
+            </div>
+        </div>
+        
+        <div class="top-right">
+            💰 <span id="money">250</span>
+        </div>
+        
+        <div class="bottom-center">
+            <div class="speedometer">
+                <div id="speed">0</div>
+                <div class="unit">MPH</div>
+            </div>
+            
+            <div class="controls">
+                <div><kbd>W</kbd> <span>Accelerate</span></div>
+                <div><kbd>S</kbd> <span>Brake</span></div>
+                <div><kbd>A/D</kbd> <span>Steer</span></div>
+                <div><kbd>Space</kbd> <span>Handbrake</span></div>
+            </div>
+            
+            <button class="search-btn" onclick="window.togglePassengerList()">
+                🔍 Search Passenger (R)
+            </button>
+        </div>
+    </div>
+    
+    <div id="passenger-list">
+        <h2>Available Passengers</h2>
+        <button class="close-btn" onclick="window.togglePassengerList()">×</button>
+        <div id="passenger-cards"></div>
+    </div>
+    
+    <div id="passenger-info" class="passenger-info">
+        <h3 id="current-passenger-name"></h3>
+        <p id="current-passenger-type"></p>
+        <p>Tip: $<span id="current-tip">0</span></p>
+    </div>
+    
+    <div id="notification" class="notification"></div>
+    
+    <!-- Three.js - DÜZELTİLMİŞ CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    
+    <!-- Ana oyun scripti -->
+    <script>
+        // Global THREE erişimi için
+        window.THREE = THREE;
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>
